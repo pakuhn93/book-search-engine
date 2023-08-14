@@ -1,4 +1,9 @@
 import { useState, useEffect } from 'react';
+
+// need to import useMutation and SAVE_BOOK to be able to save a book to our User in our database
+import { useMutation } from '@apollo/client';
+import { SAVE_BOOK } from '../utils/mutations';
+
 import {
   Container,
   Col,
@@ -20,6 +25,9 @@ const SearchBooks = () => {
 
   // create state to hold saved bookId values
   const [savedBookIds, setSavedBookIds] = useState(getSavedBookIds());
+
+  // created a state to process the SAVE_BOOK mutation
+  const [saveBook, { error }] = useMutation(SAVE_BOOK);
 
   // set up useEffect hook to save `savedBookIds` list to localStorage on component unmount
   // learn more here: https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup
@@ -72,12 +80,19 @@ const SearchBooks = () => {
     }
 
     try {
-      const response = await saveBook(bookToSave, token);
+      // const response = await saveBook(bookToSave, token);
+      // ^ refactored above code to be compatible with GraphQL
+      const { data } = await saveBook({
+        // variables are what we input in the bottom field in GraphQL
+        variables: { ...bookToSave }
+      });
 
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
+      // if (!response.ok) {
+      //   throw new Error('something went wrong!');
+      // }
+      // ^ above code is from RESTful
 
+      
       // if book successfully saves to user's account, save book id to state
       setSavedBookIds([...savedBookIds, bookToSave.bookId]);
     } catch (err) {
