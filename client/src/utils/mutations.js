@@ -4,17 +4,27 @@
 
 import { gql } from '@apollo/client';
 
+export const LOGIN_USER = gql`
+    mutation Mutation($email: String!, $password: String!) {
+        login(email: $email, password: $password) {
+            token
+            user {
+                _id
+                username
+            }
+        }
+    }
+`;
+
 // create a user
-export const CREATE_USER = gql`
+export const ADD_USER = gql`
     mutation Mutation($username: String!, $email: String!, $password: String!) {
         addUser(username: $username, email: $email, password: $password) {
-        token
-        user {
-            _id
-            username
-            email
-            password
-        }
+            token
+            user {
+                _id
+                username
+            }
         }
     }
 `;
@@ -23,38 +33,36 @@ export const CREATE_USER = gql`
 export const SAVE_BOOK = gql`
     mutation Mutation($description: String!, $title: String!, $bookId: String!) {
         saveBook(description: $description, title: $title, bookId: $bookId) {
-        _id
-        username
-        email
-        password
-        savedBooks {
-            bookId
-            authors
-            description
-            image
-            link
-            title
-        }
+            _id
+            username
+            email
+            savedBooks {
+                bookId
+                authors
+                description
+                image
+                link
+                title
+            }
         }
     }
 `;
 
 // delete a book that a User has in their savedBooks array
-export const DELETE_BOOK = gql`
+export const REMOVE_BOOK = gql`
     mutation Mutation($bookId: String!) {
         removeBook(bookId: $bookId) {
-        _id
-        username
-        email
-        password
-        savedBooks {
-            bookId
-            authors
-            description
-            image
-            link
-            title
-        }
+            _id
+            username
+            email
+            savedBooks {
+                bookId
+                authors
+                description
+                image
+                link
+                title
+            }
         }
     }
 `;
