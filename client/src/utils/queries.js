@@ -3,11 +3,8 @@
 // the coding convention in this file should be ALL_CAPS and their names should resemble their function.
 
 
-// import { gql } from '@apollo/client';
+import { gql } from '@apollo/client';
 
-/* 
-
-export const QUERY_USER = gql`
+export const GET_ME = gql`
+    
 `;
-
-*/

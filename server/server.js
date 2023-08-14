@@ -12,7 +12,7 @@ const path = require('path');
 // importing the necessary modules for our Apollo server
 const { ApolloServer } = require('@apollo/server');
 const { expressMiddleware } = require('@apollo/server/express4');
-const { authMiddleware } = require('utils.auth'); // used for our User Auth
+const { authMiddleware } = require('./utils/auth'); // used for our User Auth
 
 // importing the necessary files for use with GraphQL
 const { typeDefs, resolvers } = require('./schemas'); // necessary files for GraphQL functionality
@@ -34,10 +34,11 @@ const startApolloServer = async () => {
   await server.start();
 
   // boiler-plate server stuff | remember, anything with "app" is utilizing express
-  app.use(express.urlencoded({ extended: false })); // true value will constantly refresh our database with new values
+  app.use(express.urlencoded({ extended: false })); // true value will constantly refresh our database with new values each time we start up the server
   app.use(express.json());
 
-  app.use('graphql', expressMiddleware(server, {
+  // sets up the /graphql endpoint
+  app.use('/graphql', expressMiddleware(server, {
     context: authMiddleware // User Auth stuff
   }));
 
