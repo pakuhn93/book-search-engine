@@ -46,7 +46,6 @@ const SavedBooks = () => {
       // if (!response.ok) {
       //   throw new Error('something went wrong!');
       // }
-
       // const updatedUser = await response.json();
       // setUserData(updatedUser);
       // ^ RESTful
