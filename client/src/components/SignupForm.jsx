@@ -11,7 +11,7 @@ import { ADD_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
 
 const SignupForm = () => {
-
+  // necessary for using GraphQL
   const [addUser, { error }] = useMutation(ADD_USER);
 
   // set initial form state
