@@ -23,6 +23,7 @@ const resolvers = {
         // create one User
         // always need to put parent as the first argument with our resolver functions
         addUser: async (parent, args) => {
+            console.log('MY ARGS', args);
             const user = await User.create(args);
             const token = signToken(user);
             return { token, user };
